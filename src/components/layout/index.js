@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
 import {
-	Container,
 	CssBaseline,
 } from '@material-ui/core';
 import Header from '../header';
 import Footer from '../footer';
+import './style.sass';
 
 const propTypes = {
 	children: PropTypes.node.isRequired,
@@ -29,10 +29,8 @@ const Layout = ({ children }) => {
 			<Header
 				title={data.site.siteMetadata.title}
 			/>
-			<Container maxWidth="lg">
 				{children}
-				<Footer />
-			</Container>
+			<Footer />
 		</React.Fragment>
 	)
 }

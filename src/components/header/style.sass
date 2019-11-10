@@ -1,9 +1,5 @@
 .header
-	height: 70vh
-	overflow: hidden
-	position: relative
 	color: white
-	padding: 24px
 
 	&__title
 		flex: 1
@@ -14,8 +10,10 @@
 			&:visited
 				color: inherit
 
-	&__menu-button
-		z-index: 2
+	.header__menu-button
+		position: fixed
+		right: 20px
+		bottom: 20px
 
 	&__hero-img
 		position: absoulte

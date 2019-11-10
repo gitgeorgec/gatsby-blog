@@ -23,6 +23,7 @@ const LeftDrawer = ({
 	<SwipeableDrawer
 		anchor="right"
 		open={isVisible}
+		onOpen={onClose}
 		onClose={onClose}
 		ModalProps={{
 			keepMounted: true,
@@ -32,7 +33,6 @@ const LeftDrawer = ({
 			{['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
 				<ListItem
 					button
-					divider
 					key={text}
 					onClick={onClose}
 				>

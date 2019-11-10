@@ -5,20 +5,16 @@ import {
 	Grid,
 	Typography,
 	Paper,
-	Container,
-	Hidden
 } from '@material-ui/core';
-import Img from 'gatsby-image';
 import SEO from "../components/seo"
 
-const IndexPage = ({ data }) => {
-	console.log(data)
-	const _renderNewestPost = () => {
+const IndexPage = () => {
+	const _renderAllPost = () => {
 		return [1,2,3].map(data => {
 			return (
 				<Grid item xs={12} md={4} key={Math.random().toString}>
 					<Paper>
-						<Typography variant="h5" component="h3">
+						<Typography variant="h5">
 							This is a sheet of paper.
 						</Typography>
 						<Typography component="p">
@@ -31,18 +27,11 @@ const IndexPage = ({ data }) => {
 	}
 	return (
 		<Layout>
-			<SEO title="Home" />
+			<SEO title="Blog" />
 			<main>
-				<Hidden xsDown>
-					<Img
-						fluid={data.heroImage.childImageSharp.fluid}
-					/>
-				</Hidden>
-				<Container maxWidth="lg">
-					<Grid container spacing={5}>
-						{_renderNewestPost()}
-					</Grid>
-				</Container>
+				<Grid container spacing={5}>
+					{_renderAllPost()}
+				</Grid>
 			</main>
 			<Link to="/page-2/">Go to page 2</Link>
 		</Layout>
@@ -50,15 +39,3 @@ const IndexPage = ({ data }) => {
 }
 
 export default IndexPage
-
-export const query = graphql`
-	query {
-		heroImage: file(relativePath: { eq: "mac-book.jpg" }) {
-			childImageSharp {
-				fluid (maxWidth: 1680) {
-					...GatsbyImageSharpFluid
-				}
-			}
-		}
-	}
-`
