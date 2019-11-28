@@ -1,41 +1,74 @@
-import React from "react"
-import { Link } from "gatsby"
-import Layout from "../components/layout"
+import React from 'react'
+import Layout from '../components/layout';
+import PostCard from '../components/post-card';
 import {
 	Grid,
 	Typography,
-	Paper,
+	Container,
 } from '@material-ui/core';
-import SEO from "../components/seo"
+import SEO from "../components/seo";
+import Rpath from 'ramda/src/path';
+import { navigate } from "gatsby";
 
-const IndexPage = () => {
-	const _renderAllPost = () => {
-		return [1,2,3].map(data => {
+const IndexPage = ({ data }) => {
+	const mdxEdges = Rpath(['allMdx', 'edges'], data);
+
+	const _renderNewestPost = () => {
+		return mdxEdges.map(edge => {
+			const id = Rpath(['node', 'id'], edge);
+			const frontmatter = Rpath(['node', 'frontmatter',], edge);
+			const title = Rpath(['node', 'frontmatter', 'title'], edge);
+			const date = Rpath(['node', 'frontmatter', 'date'], edge);
+
 			return (
-				<Grid item xs={12} md={4} key={Math.random().toString}>
-					<Paper>
-						<Typography variant="h5">
-							This is a sheet of paper.
-						</Typography>
-						<Typography component="p">
-							Paper can be used to build surface or other elements for your application.
-						</Typography>
-					</Paper>
+				<Grid item xs={12} key={id}>
+					<PostCard
+						data={{
+							title,
+							content: title,
+							date
+						}}
+						onClick={() => navigate(frontmatter.path)}
+					/>
 				</Grid>
 			)
 		})
 	}
 	return (
 		<Layout>
-			<SEO title="Blog" />
-			<main>
-				<Grid container spacing={5}>
-					{_renderAllPost()}
-				</Grid>
+			<SEO title="Home" />
+			<main style={{
+				maxWidth: 960,
+				margin: '60px auto',
+			}}>
+				<Container maxWidth="lg">
+					<Typography variant="h5" component="h5">
+						BLOG List
+					</Typography>
+					<Grid container spacing={1}>
+						{_renderNewestPost()}
+					</Grid>
+				</Container>
 			</main>
-			<Link to="/page-2/">Go to page 2</Link>
 		</Layout>
 	)
 }
 
 export default IndexPage
+
+export const query = graphql`
+	query {
+		allMdx {
+			edges {
+				node {
+					id
+					frontmatter {
+						path
+						date(locale: "")
+						title
+					}
+				}
+			}
+		}
+	}
+`

@@ -31,8 +31,11 @@ const Header = ({title}) => {
 				</Typography>
 				<Hidden xsDown>
 					<div className="header__navigator">
+						<Link to="/blog">
+							BLOG
+						</Link>
 						<Link to="/about">
-							ALL POST
+							ABOUT
 						</Link>
 					</div>
 				</Hidden>
