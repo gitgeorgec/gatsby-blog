@@ -1,0 +1,79 @@
+@import '../style/setting'
+
+.index-page
+	a
+		color: $base-color-1
+		text-decoration: none
+
+	.MuiTabs-root
+		position: fixed
+		right: 0
+		width: 300px
+		bottom: 200px
+
+	&__blog-tab-panel
+		position: relative
+
+		.gatsby-image-wrapper
+			max-width: 600px
+			margin: 0 auto
+			height: 0
+			opacity: 0
+			max-height: auto
+			animation: slideShowDown
+			animation-duration: 0.6s
+			animation-fill-mode: forwards
+		a
+			position: absolute
+			background: $base-color-3
+			color: $base-color-5
+			top: 100px
+			left: 10%
+			font-size: 2rem
+			width: 0
+			padding: 15px
+			padding-left: 40px
+			animation: slideShowRight
+			animation-duration: 0.3s
+			animation-fill-mode: forwards
+
+			div
+				animation: fadeIn
+				animation-duration: 0.6s
+				animation-fill-mode: forwards
+			&:hover
+				div
+					color: $base-color-4
+				div::after
+					width: 100px
+
+			div::after
+				content: ""
+				width: 0
+				border-bottom: 2px solid $base-color-4
+				position: absolute
+				left: -5px
+				bottom: 0
+				transition: 0.3s
+
+
+
+@keyframes slideShowRight
+	0%
+		width: 0
+	100%
+		width: 280px
+@keyframes slideShowDown
+	0%
+		height: 0
+		opacity: 0
+	100%
+		opacity: 1
+		height: 750px
+@keyframes fadeIn
+	0%
+		opacity: 0
+		transform: translateX(100%)
+	100%
+		opacity: 1
+		transform: translateX(0%)

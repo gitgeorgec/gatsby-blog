@@ -1,32 +1,45 @@
+@import '../../style/setting'
+
 .header
-	color: white
+	padding: 20px
 
-	&__title
-		flex: 1
-		z-index: 2
-		a
-			text-decoration: none
-			margin-right: 10px
-			&:visited
-				color: inherit
+	&-link
+		display: inline-flex
+		align-items: center
+		cursor: pointer
+		font-size: 1.2rem
+		font-weight: bold
 
-	.header__menu-button
-		position: fixed
-		right: 20px
-		bottom: 20px
+		&:hover
+			span
+				width: 100%
+				&::after
+					width: 100%
 
-	&__hero-img
-		position: absoulte
-		left: 0
-		top: 0
-		width: 100%
-		height: 100%
-		z-index: -1
+		span
+			position: relative
+			color: $base-color-1
+			width: 0
+			white-space: nowrap
+			overflow: hidden
+			transition: 0.3s
 
-	&__navigator
-		a
-			text-decoration: none
-			margin-right: 10px
-			&:visited
-				color: inherit
+			&::after
+				content: ""
+				width: 0
+				border-bottom: 2px solid $base-color-2
+				position: absolute
+				left: 0
+				bottom: 0
+				transition: 0.6s
+
+	a
+		color: $base-color-1
+		text-decoration: none
+
+	svg
+		width: 40px
+		height: 40px
+
+
 

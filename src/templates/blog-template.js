@@ -6,7 +6,6 @@ import SEO from '../components/seo';
 import {
 	Paper,
 } from '@material-ui/core';
-import './github.css'
 
 const BlogTemplate = ({ data, id }) => {
 	const { mdx } = data;
@@ -17,7 +16,7 @@ const BlogTemplate = ({ data, id }) => {
 		<Layout>
 			<SEO title={title}/>
 			<main style={{ maxWidth: 960, margin: '0 auto',}}>
-				<Paper style={{ padding: 20, minHeight: '100vh', marginTop: 60}}>
+				<Paper style={{ padding: 20, minHeight: '100vh', }} className="blog">
 					<MDXRenderer>{body}</MDXRenderer>
 				</Paper>
 				<Link to={frontmatter.path}>hihi</Link>

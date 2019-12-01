@@ -1,14 +1,15 @@
 import React from 'react'
-import Layout from '../components/layout';
-import PostCard from '../components/post-card';
+import Layout from '../../components/layout';
+import PostCard from '../../components/post-card';
 import {
 	Grid,
 	Typography,
 	Container,
 } from '@material-ui/core';
-import SEO from "../components/seo";
+import SEO from "../../components/seo";
 import Rpath from 'ramda/src/path';
 import { navigate } from "gatsby";
+import './blog.sass'
 
 const IndexPage = ({ data }) => {
 	const mdxEdges = Rpath(['allMdx', 'edges'], data);
@@ -39,7 +40,7 @@ const IndexPage = ({ data }) => {
 			<SEO title="Home" />
 			<main style={{
 				maxWidth: 960,
-				margin: '60px auto',
+				margin: '0px auto',
 			}}>
 				<Container maxWidth="lg">
 					<Typography variant="h5" component="h5">

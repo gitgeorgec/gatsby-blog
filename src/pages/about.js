@@ -15,11 +15,8 @@ const IndexPage = ({ data }) => {
 
 	return (
 		<Layout>
-			<SEO title="Home" />
-			<main style={{
-				maxWidth: 960,
-				margin: '60px auto',
-			}}>
+			<SEO title="ABOUT" />
+			<main>
 				ABOUT
 			</main>
 		</Layout>
