@@ -1,8 +1,6 @@
 import React from 'react';
-import {
-	Typography,
-	Paper,
-} from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
 import PropTypes from 'prop-types';
 import './style.sass';
 
