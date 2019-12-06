@@ -1,6 +1,5 @@
 .my-slide-wrapper
 	position: relative
-	z-index: -1
 	overflow: hidden
 
 	.my-slide-cover
@@ -38,23 +37,35 @@
 @keyframes imageSlideUp
 	0%
 		transform: translateY(0)
+	70%
+		transform: translateY(-100%)
 	100%
 		transform: translateY(-100%)
+		z-index: -1
 
 @keyframes imageSlideDown
 	0%
 		transform: translateY(0)
+	70%
+		transform: translateY(100%)
 	100%
 		transform: translateY(100%)
+		z-index: -1
 
 @keyframes imageSlideLeft
 	0%
 		transform: translateX(0)
+	70%
+		transform: translateX(100%)
 	100%
 		transform: translateX(100%)
+		z-index: -1
 
 @keyframes imageSlideRight
 	0%
 		transform: translateX(0)
+	70%
+		transform: translateX(-100%)
 	100%
 		transform: translateX(-100%)
+		z-index: -1

@@ -2,6 +2,7 @@ import React from 'react'
 import Proptypes from 'prop-types';
 import Layout from '../../components/layout';
 import PostCard from '../../components/post-card';
+import SlideAnimate from '../../components/slide-animate';
 import {
 	Grid,
 	Typography,
@@ -20,22 +21,25 @@ const BlogIndexPage = ({ data }) => {
 	const mdxEdges = Rpath(['allMdx', 'edges'], data);
 
 	const _renderNewestPost = () => {
-		return mdxEdges.map(edge => {
+		return mdxEdges.map((edge, index) => {
 			const id = Rpath(['node', 'id'], edge);
 			const frontmatter = Rpath(['node', 'frontmatter',], edge);
 			const title = Rpath(['node', 'frontmatter', 'title'], edge);
 			const date = Rpath(['node', 'frontmatter', 'date'], edge);
+			const excerpt = Rpath(['node', 'excerpt'], edge);
 
 			return (
 				<Grid item xs={12} key={id}>
-					<PostCard
-						data={{
-							title,
-							content: title,
-							date
-						}}
-						onClick={() => navigate(frontmatter.path)}
-					/>
+					<SlideAnimate slideDirection={ index%2 === 1 ? 'left' : 'right'} className="background-color-5">
+						<PostCard
+							data={{
+								title,
+								content: excerpt,
+								date
+							}}
+							onClick={() => navigate(frontmatter.path)}
+						/>
+					</SlideAnimate>
 				</Grid>
 			)
 		})
@@ -48,7 +52,7 @@ const BlogIndexPage = ({ data }) => {
 				margin: '0px auto',
 			}}>
 				<Container maxWidth="lg">
-					<Typography variant="h5" component="h5">
+					<Typography variant="h4" component="h4">
 						BLOG List
 					</Typography>
 					<Grid container spacing={1}>
@@ -75,6 +79,7 @@ export const query = graphql`
 						date
 						title
 					}
+					excerpt(pruneLength: 50)
 				}
 			}
 		}

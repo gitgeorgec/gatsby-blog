@@ -24,7 +24,8 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 					node {
 						id
 						frontmatter {
-							path
+							path,
+							title
 						}
 					}
 				}
@@ -37,15 +38,24 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 	}
 
 	const posts = result.data.allMdx.edges;
+	const totalPosts = posts.length;
 
-	posts.forEach(({ node }, index) => {
+	posts.forEach((post, index) => {
+		const { node } = post;
+		const previous = index === totalPosts - 1 ? null : posts[index + 1];
+		const next = index === 0 ? null : posts[index - 1];
+
 		createPage({
 			path: node.frontmatter.path,
 			// This component will wrap our MDX content
 			component: path.resolve(`./src/templates/blog-template.js`),
 			// You can use the values in this context in
 			// our page layout component
-			context: { id: node.id },
+			context: {
+				id: node.id,
+				previous,
+				next,
+			},
 		})
 	})
 }
