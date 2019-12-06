@@ -5,7 +5,6 @@ title: "面試題目整理"
 ---
 
 ### 1. 手動實現Promise
-
 [Promise/A+](https://promisesaplus.com/) 參考
 
 [实现一个完美符合Promise/A+规范的Promise](https://github.com/forthealllight/blog/issues/4)
@@ -49,7 +48,7 @@ title: "面試題目整理"
 ```
 
 `.then` 方法
-```
+```js
 	MyPromise.prototype.then = function(onFullfilled, onRejected) {
 		let self = this;
 		let promise2;
@@ -110,7 +109,7 @@ title: "面試題目整理"
 ```
 
 `resolvePromise`函数
-```
+```js
 function resolvePromise(promise, x, resolve, reject) {
 	if (promise === x) {
 		throw new TypeError("type error");

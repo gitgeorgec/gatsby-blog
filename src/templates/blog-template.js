@@ -23,7 +23,6 @@ const BlogTemplate = ({ data, pageContext, }) => {
 		if (node) {
 			const path = Rpath(['node', 'frontmatter', 'path'], node);
 			const title = Rpath(['node', 'frontmatter', 'title'], node);
-			console.log(node)
 
 			return <Link to={path}>{title}</Link>
 		}

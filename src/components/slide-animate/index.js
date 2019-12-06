@@ -1,6 +1,13 @@
 import React from 'react'
+import PropTypes from 'prop-types';
 import cx from 'classnames';
 import './style.sass';
+
+const propTypes = {
+	className: PropTypes.string,
+	children: PropTypes.node,
+	slideDirection: PropTypes.string,
+};
 
 const defaultProps = {
 	slideDirection: 'up'
@@ -10,7 +17,6 @@ const SlideAnimate = ({
 	className,
 	children,
 	slideDirection,
-	background,
 }) => {
 
 	return (
@@ -20,11 +26,12 @@ const SlideAnimate = ({
 			className,
 		)}>
 			{children}
-			<div className="my-slide-cover" style={{ background, }}/>
+			<div className="my-slide-cover"/>
 		</div>
 	)
 };
 
+SlideAnimate.propTypes = propTypes;
 SlideAnimate.defaultProps = defaultProps;
 
 export default SlideAnimate

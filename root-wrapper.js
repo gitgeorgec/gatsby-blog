@@ -1,53 +1,22 @@
----
-path: "/blog/use-gatsby-create-blog"
-date: "2019-11-10"
-title: "使用 Gatsby 從頭建立一個 Blog"
----
-
-## setp1 安裝 Gatsby
-
-依據[Gatsby 官網](https://www.gatsbyjs.org/)的說明，利用 npm 於全域安裝 gatsby-cli
-
-```
-npm install -g gatsby-cli
-```
-
-## setp2 建立專案
-
-```
-gatsby new [SITE_DIRECTORY_NAME] [URL_OF_STARTER_GITHUB_REPO]
-```
-
-
-## 為MDX 程式碼增加Hightlight
-
-安裝
-```
-npm install prism-react-renderer
-touch root-wrapper.js
-```
-
-新增的 `root-wrapper.js`內容
-```js
+/* eslint-disable react/prop-types */
+/* eslint-disable react/display-name */
 import { MDXProvider } from '@mdx-js/react';
 import Highlight, { defaultProps, } from 'prism-react-renderer';
 import theme from 'prism-react-renderer/themes/vsDark';
 import React from 'react';
+import Rpath from 'ramda/src/path';
 
 const components = {
 	pre: props => {
 		const className = props.children.props.className || '';
 		const matches = className.match(/language-(?<lang>.*)/);
+		const lang = Rpath(['groups', 'lang'], matches) || ''
 
 		return (
 			<Highlight
 				{...defaultProps}
 				code={props.children.props.children.trim()}
-				language={
-					matches && matches.groups && matches.groups.lang
-						? matches.groups.lang
-						: ''
-				}
+				language={lang}
 				theme={theme}
 				>
 				{({
@@ -75,14 +44,3 @@ const components = {
 export const wrapRootElement = ({ element }) => (
   <MDXProvider components={components}>{element}</MDXProvider>
 );
-```
-
-
-於 `gatsby-browser.js` and `gatsby-ssr.js`新增
-```js
-import { wrapRootElement as wrap } from './root-wrapper';
-
-export const wrapRootElement = wrap;
-```
-
-重新啟動 gatsby
