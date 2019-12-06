@@ -1,0 +1,145 @@
+---
+path: "/blog/interview-practice-note"
+date: "2019-12-5"
+title: "面試題目整理"
+---
+### 1. 手動實現Promise
+
+[Promise/A+](https://promisesaplus.com/) 參考
+
+[实现一个完美符合Promise/A+规范的Promise](https://github.com/forthealllight/blog/issues/4)
+
+```js
+	function MyPromise(constructor) {
+		let self = this;
+
+		self.status = 'pending';
+		self.value = undefined;
+		self.reason = undefined;
+		self.onFullfilledArray = [];
+		self.onRejectedArray = [];
+
+		function resolve(value) {
+			if (self.status === 'pending') {
+				self.status === 'resolved'
+				self.value = value;
+				self.onFullfilledArray.forEach(function(f) {
+					f(self.value);
+				})
+			}
+		}
+
+		function reject(reason) {
+			if (self.status === 'pending') {
+				self.status === 'rejected'
+				self.reason = reason
+				self.onRejectedArray.forEach(function(f) {
+					f(self.reason);
+				})
+			}
+		}
+
+		try {
+			constructor(resolve, reject)
+		} catch(err) {
+			reject(err);
+		}
+	}
+```
+
+`.then` 方法
+```
+	MyPromise.prototype.then = function(onFullfilled, onRejected) {
+		let self = this;
+		let promise2;
+
+		switch(self.status) {
+			case "pending":
+				promise2 = new MyPromise(function(resolve, reject) {
+					self.onFullfilledArray.push(function(
+						setTimeout(function() {
+							try {
+								let temple = onFullfilled(self.value);
+								resolvePromise(temple);
+							} catch(e) {
+								reject(e);
+							}
+						})
+					));
+					self.onRejectedArray.push(function(){
+						setTimeout(function() {
+							try {
+								let temple = onRejected(self.reason);
+								resolvePromise(temple);
+							} catch (e) {
+								reject(e);
+							}
+						})
+					})
+				})
+				break;
+			case "resolved":
+				promise2 = new MyPromise(function(resolve, reject) {
+					setTimeout(function() {
+						try {
+							let temple = onFullfilled(self.value);
+							resolvePromise(temple);
+						} catch(e) {
+							reject(e);
+						}
+					})
+				})
+				break;
+			case "rejected":
+				promise2 = new MyPromise(function(resolve, reject) {
+					setTimeout(function() {
+						try {
+							let temple = onRejected(self.reason);
+							resolvePromise(temple);
+						} catch(e) {
+							reject(e);
+						}
+					})
+				})
+				break;
+			default:
+		}
+		return promise2
+	}
+```
+
+`resolvePromise`函数
+```
+function resolvePromise(promise, x, resolve, reject) {
+	if (promise === x) {
+		throw new TypeError("type error");
+	}
+
+	let isUsed;
+
+	if (x !== null && typeof x === 'object'|| typeof x === 'function') {
+		try {
+			let then = x.then;
+			if (typeof then === 'function') {
+				then.call(x, function(y) {
+					if (isUsed) return;
+					isUsed = true;
+					resolvePromise(promise, y, resolve, reject);
+				}, function(e) {
+					if (isUsed) return;
+					isUsed = true;
+					reject(e);
+				})
+			} else {
+				resolve(x);
+			}
+		} catch(e) {
+			if (isUsed) return;
+			isUsed = true;
+			reject(e);
+		}
+	} else {
+		resolve(x);
+	}
+}
+```

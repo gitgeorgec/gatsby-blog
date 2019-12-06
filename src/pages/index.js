@@ -1,4 +1,4 @@
-import React, { useState, useEffect, } from 'react'
+import React, { useState, } from 'react'
 import PropTypes from 'prop-types';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -36,23 +36,6 @@ const IndexPage = ({ data }) => {
 		setValue(newValue);
 	};
 
-	useEffect(() => {
-		const body = document.querySelector('body');
-
-		function scroll () {
-			return console.log('scroll')
-		}
-
-		// function addEvent () {
-			body.addEventListener('wheel', scroll)
-		// }
-
-		// addEvent()
-		return function clearEvent () {
-			body.removeEventListener('click', scroll)
-		}
-	}, [])
-
 	return (
 		<Layout>
 			<SEO title="Home" />
@@ -79,9 +62,7 @@ const IndexPage = ({ data }) => {
 					</div>
 				</TabPanel>
 				<TabPanel value={value} index={1}>
-					<div className={cx(`${PREFIX_CLASS}__about-tab-panel`, {
-						[`${PREFIX_CLASS}__about-tab-panel--active`]: value === 1
-					})}>
+					<div className={cx(`${PREFIX_CLASS}__about-tab-panel`)}>
 						<SlideAnimate
 							className={cx(`${PREFIX_CLASS}__img-slide`, "background-color-5")}
 							slideDirection="down"

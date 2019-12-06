@@ -1,4 +1,5 @@
 import React from 'react'
+import Proptypes from 'prop-types';
 import Layout from '../../components/layout';
 import PostCard from '../../components/post-card';
 import {
@@ -8,10 +9,14 @@ import {
 } from '@material-ui/core';
 import SEO from "../../components/seo";
 import Rpath from 'ramda/src/path';
-import { navigate } from "gatsby";
+import { navigate, graphql } from "gatsby";
 import './blog.sass'
 
-const IndexPage = ({ data }) => {
+const propTypes = {
+	data: Proptypes.object,
+};
+
+const BlogIndexPage = ({ data }) => {
 	const mdxEdges = Rpath(['allMdx', 'edges'], data);
 
 	const _renderNewestPost = () => {
@@ -55,7 +60,9 @@ const IndexPage = ({ data }) => {
 	)
 }
 
-export default IndexPage
+BlogIndexPage.propTypes = propTypes;
+
+export default BlogIndexPage
 
 export const query = graphql`
 	query {
@@ -65,7 +72,7 @@ export const query = graphql`
 					id
 					frontmatter {
 						path
-						date(locale: "")
+						date
 						title
 					}
 				}

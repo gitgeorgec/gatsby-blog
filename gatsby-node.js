@@ -39,7 +39,6 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 	const posts = result.data.allMdx.edges;
 
 	posts.forEach(({ node }, index) => {
-		console.log(node)
 		createPage({
 			path: node.frontmatter.path,
 			// This component will wrap our MDX content

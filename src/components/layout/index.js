@@ -9,7 +9,7 @@ const propTypes = {
 	children: PropTypes.node.isRequired,
 }
 
-const Layout = ({ children }) => {
+const Layout = ({ children, ...props }) => {
 	const data = useStaticQuery(graphql`
 		query SiteTitleQuery {
 		site {
@@ -21,13 +21,13 @@ const Layout = ({ children }) => {
 	`)
 
 	return (
-		<React.Fragment>
+		<div {...props}>
 			<Header
 				title={data.site.siteMetadata.title}
 			/>
 				{children}
 			<Footer />
-		</React.Fragment>
+		</div>
 	)
 }
 
