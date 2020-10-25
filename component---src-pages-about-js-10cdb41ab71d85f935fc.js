@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[4],{"3XHS":function(e,t,a){"use strict";a.r(t);var n=a("q1tI"),c=a.n(n),l=a("I/Ru"),r=a("vrFN");t.default=function(e){e.data;return c.a.createElement(l.a,null,c.a.createElement(r.a,{title:"ABOUT"}),c.a.createElement("main",null,c.a.createElement("h1",null,"ABOUT"),c.a.createElement("a",{href:"https://www.cakeresume.com/s---cJWm9IxqWgJD2QJlL3ocw--/zc112358"},"個人履歷")))}}}]);
+//# sourceMappingURL=component---src-pages-about-js-10cdb41ab71d85f935fc.js.map
