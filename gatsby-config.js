@@ -1,5 +1,6 @@
 /* eslint-disable no-undef */
 module.exports = {
+  pathPrefix: "gatsby-blog",
   siteMetadata: {
     title: `George Chang's Blog`,
     description: `Frontend engineering blog. 前端工程紀錄分享`,
