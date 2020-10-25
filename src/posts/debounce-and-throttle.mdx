@@ -1,0 +1,56 @@
+---
+title: Debounce 與 Throttle
+date: 2019/12/7
+path: debounce-and-throttle
+---
+
+## 手動實現 Debounce
+
+debounce 去抖動簡單實現
+```js
+function debounce(func, delay) {
+	let timer
+
+	function debounced() {
+		const context = this;
+		const args = arguments;
+
+		clearTimeout(timer)
+
+		timer = setTimeout(() => {
+			func.apply(context, args)
+		}, delay);
+	}
+
+	return debounced;
+}
+
+```
+
+## 手動實現 throttle
+throttle 節流簡單實現
+```js
+function throttle(func, threshhold) {
+	let lastTime
+	let timer
+
+	function throttled() {
+		const context = this
+		const args = arguments
+		const current = new Date().getTime()
+
+		if (lastTime && current - lastTime < threshhold) {
+			clearTimeout(timer)
+
+			timer = setTimeout(() => {
+				func.apply(context, args)
+			}, threshhold);
+		} else {
+			func.apply(context, args)
+			lastTime = current;
+		}
+	}
+
+	return throttled;
+}
+```

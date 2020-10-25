@@ -11,7 +11,6 @@ import {
 import SEO from "../../components/seo";
 import Rpath from 'ramda/src/path';
 import { navigate, graphql } from "gatsby";
-import './blog.sass'
 
 const propTypes = {
 	data: Proptypes.object,
@@ -30,7 +29,10 @@ const BlogIndexPage = ({ data }) => {
 
 			return (
 				<Grid item xs={12} key={id}>
-					<SlideAnimate slideDirection={ index%2 === 1 ? 'left' : 'right'} className="background-color-5">
+					<SlideAnimate
+						slideDirection={ index%2 === 1 ? 'left' : 'right'}
+						className="background-color-5"
+					>
 						<PostCard
 							data={{
 								title,
@@ -46,14 +48,14 @@ const BlogIndexPage = ({ data }) => {
 	}
 	return (
 		<Layout>
-			<SEO title="Home" />
+			<SEO title="Blog" />
 			<main style={{
 				maxWidth: 960,
 				margin: '0px auto',
 			}}>
 				<Container maxWidth="lg">
 					<Typography variant="h4" component="h4">
-						BLOG List
+						BLOG LIST
 					</Typography>
 					<Grid container spacing={1}>
 						{_renderNewestPost()}
@@ -70,7 +72,7 @@ export default BlogIndexPage
 
 export const query = graphql`
 	query {
-		allMdx {
+		allMdx(sort: {fields: frontmatter___date, order: DESC}) {
 			edges {
 				node {
 					id

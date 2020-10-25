@@ -1,0 +1,69 @@
+---
+title: Leetcode 刷題紀錄#1 Two Sum
+date: 2020/04/08
+path: leetcode-two-sum
+---
+
+## 問題描述
+Given an array of integers, return indices of the two numbers such that they add up to a specific target.
+
+You may assume that each input would have exactly one solution, and you may not use the same element twice.
+
+Example:
+
+Given nums = [2, 7, 11, 15], target = 9,
+
+Because nums[0] + nums[1] = 2 + 7 = 9,
+return [0, 1].
+
+## 第一個想法
+直接做Loop 從第一個元素對比剩下的元素，若無符合，則用第二個元素對比。依此類推
+
+```js
+var twoSum = function(nums, target) {
+	for(let index1 = 0; index1 < nums.length; index1++) {
+		for(let index2 = index1 + 1; index2 < nums.length; index2++) {
+			if (nums[index1] + nums[index2] === target) {
+				return [index1, index2]
+			}
+		}
+	}
+};
+```
+
+## 第二個想法
+利用object，先新建一個暫存object 然後一樣對nums跑Loop，每個元素與target 相減，比對暫存object內是否有對應元素，若無則將結果存到暫存object裡面，
+相減後的結果為key, index為value，若有則回傳對應的value 與當下的index
+
+```js
+var twoSum = function(nums, target) {
+	const tempObj = {}
+	for(let i = 0; i < nums.length; i++) {
+		const key = target - nums[i];
+
+		if (tempObj[nums[i]] >= 0) {
+			return [tempObj[nums[i]], i]
+		} else {
+			tempObj[key] = i
+		}
+	}
+}
+```
+
+## 看別人的解答，第三種思路
+與第二種類似，但使用Map來處理
+
+```js
+var twoSum = function(nums, target) {
+	const tempMap = new Map
+	for(let i = 0; i < nums.length; i++) {
+		const key = target - nums[i];
+
+		if (tempMap.has(nums[i])) {
+			return [tempMap.get(nums[i]), i]
+		} else {
+			tempObj[key] = i
+		}
+	}
+}
+```

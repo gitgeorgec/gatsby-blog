@@ -1,0 +1,94 @@
+---
+title: Leetcode 刷題紀錄#53 Maximum Subarray
+date: 2020/04/09
+path: leetcode-maximum-subarray
+---
+
+## 問題描述
+Given an integer array nums, find the contiguous subarray (containing at least one number) which has the largest sum and return its sum.
+
+Example:
+
+Input: [-2,1,-3,4,-1,2,1,-5,4],
+Output: 6
+Explanation: [4,-1,2,1] has the largest sum = 6.
+
+
+## 第一個想法(Time Limit Exceeded)
+暴力解
+```js
+
+var maxSubArray = function(nums) {
+	let maxSubSum = nums[0];
+
+	for(let subsize = 1; subsize <= nums.length; subsize++) {
+		for(let i = 0; i < nums.length; i++) {
+			const sub = nums.slice(i, i+subsize)
+			const subSum = sub.reduce((a,b) => a+b, 0);
+			if (subSum > maxSubSum) {
+				maxSubSum = subSum;
+			}
+		}
+	}
+
+	return maxSubSum
+};
+
+```
+
+## 第二個想法(Time Limit Exceeded)
+暴力解 2
+```js
+var maxSubArray = function(nums) {
+	let maxSubSum = nums[0];
+
+	for(let i = 0; i < nums.length; i++) {
+		for(let j = nums.length; j > i; j--) {
+			if (nums[i] > 0) {
+				const sub = nums.slice(i, j)
+				const subSum = sub.reduce((a,b) => a+b, 0);
+				if (subSum > maxSubSum) {
+					maxSubSum = subSum;
+				}
+			} else {
+				if (nums[i] > maxSubSum) {
+					maxSubSum = nums[i];
+				}
+			}
+		}
+	}
+
+	return maxSubSum
+};
+
+```
+
+## 第三個想法(wrong answer))
+利用兩個指針，一個指向頭(i)，一個指向尾(j)，設定一個值紀錄最大sum
+指針分別遞增(m)與遞減(n)，遇到非正數就跳過，若兩個都是正數則計算封閉區間(i+m ~ j-n)的sum，比對最大sum，若大於則取代
+
+---
+
+## 偷看解答
+思路
+由於本題不需要知道最後的subArray 的位置，只要知道最大值即可。
+從第一個數字開始，每增加一個數字，取新數字與前一個位置能取得的最大值與新數字之和（max(num[i], num[i] + maxSub[i-1])）及為當前位置能取到的最大值(maxSub[i])，
+循環到最後一個數字，過程中更新最大值答案。
+
+```js
+var maxSubArray = function(nums) {
+	let maxSub = nums[0];
+	let prevSub = nums[0];
+
+	for(let i = 1; i < nums.length; i++) {
+		prevSub = Math.max(nums[i], nums[i] + prevSub)
+		if (prevSub > maxSub) {
+			maxSub = prevSub
+		}
+	}
+
+	return maxSub
+}
+
+```
+

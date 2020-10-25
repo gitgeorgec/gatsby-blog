@@ -1,0 +1,21 @@
+---
+title: 手動實現call, bind, apply函式
+date: 2019/12/11
+path: call-bind-apply
+---
+
+```js
+Function.prototype.myCall = function(context) {
+	context[this] = this;
+
+	return context[this]();
+}
+```
+
+```js
+Function.prototype.myBind = function (context) {
+
+
+	return this;
+}
+```

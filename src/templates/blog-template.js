@@ -7,6 +7,7 @@ import SlideAnimate from '../components/slide-animate';
 import SEO from '../components/seo';
 import Paper from '@material-ui/core/Paper';
 import Rpath from 'ramda/src/path';
+import './blog.sass';
 
 const propTypes = {
 	data: PropTypes.object,
@@ -18,6 +19,7 @@ const BlogTemplate = ({ data, pageContext, }) => {
 	const date = Rpath(['mdx', 'frontmatter', 'date'], data);
 	const body = Rpath(['mdx', 'body'], data);
 	const { previous, next } = pageContext
+	console.log(pageContext)
 
 	function _renderLink(node) {
 		if (node) {
